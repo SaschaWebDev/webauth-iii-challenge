@@ -10,7 +10,7 @@ function restricted(req, res, next) {
 
   jwt.verify(token, secrets.jwtSecret, (error, decodedToken) => {
     if (error) {
-      res.status(401).json({ error: error });
+      res.status(401).json({ error: 'Authorization failed. Access denies!' });
     } else {
       req.decodedToken = decodedToken;
       next();
