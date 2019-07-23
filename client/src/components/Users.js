@@ -28,9 +28,30 @@ class Users extends React.Component {
       });
   }
 
+  logout() {
+    localStorage.removeItem('token');
+    const server_path = 'http://localhost:5000/api/logout';
+
+    axios
+      .get(server_path)
+      .then(res => {
+        console.log('LOGOUT', res);
+        this.props.history.push('/signin');
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
   render() {
     return (
       <>
+        <button
+          onClick={() => {
+            this.logout();
+          }}>
+          Logout
+        </button>
         <h2>The List of Users:</h2>
         {this.state.users &&
           this.state.users.map(user => (
