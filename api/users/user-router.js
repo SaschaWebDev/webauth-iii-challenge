@@ -13,11 +13,23 @@ const AuthMiddleware = require('../middleware/auth-middleware.js');
 router.get('/users', AuthMiddleware.restricted, async (req, res) => {
   Users.find()
     .then(users => {
-      res.status(200).json({ users, decodedToken: req.decodedToken });
+      res.status(200).json({
+        users: usersWithoutPassword(users),
+        decodedToken: req.decodedToken,
+      });
     })
     .catch(error => res.status(500).json({ error: error }));
 });
 
+function usersWithoutPassword(users) {
+  return users.map(user => ({
+    id: user.id,
+    username: user.username,
+    department: user.department,
+  }));
+}
+
+// ADD A NEW USER
 router.post('/register', (req, res) => {
   let { username, password, department } = req.body;
 
@@ -27,7 +39,11 @@ router.post('/register', (req, res) => {
 
     Users.add({ username, password, department })
       .then(newUser => {
-        res.status(201).json(newUser);
+        res.status(201).json({
+          id: newUser.id,
+          username: newUser.username,
+          department: newUser.department,
+        });
       })
       .catch(error => {
         res
