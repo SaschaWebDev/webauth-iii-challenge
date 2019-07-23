@@ -5,7 +5,7 @@ const session = require('express-session');
 const SessionStore = require('connect-session-knex')(session);
 const cors = require('cors');
 
-const secrets = require('./data/secrets/secrets.js');
+const secrets = require('./data/secrets/secret.js');
 const jwt = require('jsonwebtoken');
 
 /* const UsersRouter = require('./api/users/user-router.js'); */
@@ -43,7 +43,7 @@ server.use(helmet());
 server.use(session(sessionConfig));
 server.use(cors());
 
-/* server.use('/api/users', UsersRouter); */
+/* server.use('/api/', UsersRouter); */
 /* server.use('/api/auth', AuthRouter); */
 
 function Requestlogger(req, res, next) {
