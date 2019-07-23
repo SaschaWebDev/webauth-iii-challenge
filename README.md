@@ -1,5 +1,9 @@
 # Authentication using JSON Web Tokens (JWTs)
 
+## Author:
+
+Sascha Majewsky
+
 ## Topics
 
 - Authentication.
