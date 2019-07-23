@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import './App.css';
 import SignUp from './components/SignUp';
+import SignIn from './components/SignIn';
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
         <Switch>
           <Route exact path='/' />
           <Route path='/signup' render={props => <SignUp {...props} />} />
-          <Route path='/signin' />
+          <Route path='/signin' render={props => <SignIn {...props} />} />
           <Route path='/users' />
         </Switch>
       </main>
