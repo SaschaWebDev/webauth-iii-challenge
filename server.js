@@ -5,10 +5,7 @@ const session = require('express-session');
 const SessionStore = require('connect-session-knex')(session);
 const cors = require('cors');
 
-const secrets = require('./data/secrets/secret.js');
-const jwt = require('jsonwebtoken');
-
-/* const UsersRouter = require('./api/users/user-router.js'); */
+const UsersRouter = require('./api/users/user-router.js');
 /* const AuthRouter = require('/./api/auth/auth-router.js') */
 
 const server = express();
@@ -16,7 +13,7 @@ const sessionConfig = {
   name: 'monkey', // default is 'sid' by changing the name we don't expose the  used library
   secret: 'keep it secret, keep it safe!', // should be in environment variable
   cookie: {
-    maxAge: 60000 * 30, // cookie will stay valid for 30 minutes
+    maxAge: 60000 * 60, // cookie will stay valid for 1 hour
     secure: false, // cookie only over HTTPS? Always true in production!
     httpOnly: true, // No JavaScript on the client get access to the cookie
   },
@@ -27,7 +24,7 @@ const sessionConfig = {
     tablename: 'sessions',
     sidfieldname: 'sid',
     createtable: true,
-    clearInterval: 60000 * 30,
+    clearInterval: 60000 * 60,
   }),
 };
 
@@ -43,7 +40,7 @@ server.use(helmet());
 server.use(session(sessionConfig));
 server.use(cors());
 
-/* server.use('/api/', UsersRouter); */
+server.use('/api/', UsersRouter);
 /* server.use('/api/auth', AuthRouter); */
 
 function Requestlogger(req, res, next) {

@@ -8,7 +8,7 @@ module.exports = {
 function restricted(req, res, next) {
   const token = req.headers.authorization;
 
-  jwt.verify(token, secrets.jwtSecret, (err, decodedToken) => {
+  jwt.verify(token, secrets.jwtSecret, (error, decodedToken) => {
     if (error) {
       res.status(401).json({ error: error });
     } else {
